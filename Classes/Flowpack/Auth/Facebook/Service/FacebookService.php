@@ -1,16 +1,16 @@
 <?php
 
-namespace FLOW3\Facebook\Service;
+namespace Flowpack\Auth\Facebook\Service;
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
-require_once FLOW3_PATH_PACKAGES . 'Application/FLOW3.Facebook/Resources/Private/PHP/facebook-sdk/facebook.php';
+require_once FLOW_PATH_PACKAGES . 'Application/Flowpack.Auth.Facebook/Resources/Private/PHP/facebook-sdk/facebook.php';
 
 /**
  * Service Facebook
  *
  * @author Benoit NORRIN <benoit@norrin.fr>
- * @FLOW3\Scope("prototype")
+ * @Flow\Scope("prototype")
  */
 class FacebookService {
 

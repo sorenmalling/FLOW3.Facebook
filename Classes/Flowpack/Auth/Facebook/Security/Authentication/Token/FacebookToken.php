@@ -1,10 +1,10 @@
 <?php
 
-namespace FLOW3\Facebook\Security\Authentication\Token;
+namespace Flowpack\Auth\Facebook\Security\Authentication\Token;
 
 /*
  *
- * This script belongs to the FLOW3 framework.                            *
+ * This script belongs to the Flow framework.                            *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -13,26 +13,26 @@ namespace FLOW3\Facebook\Security\Authentication\Token;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * An authentication token used for sso credentials coming from Facebook
  * @author Benoit NORRIN <benoit@norrin.fr>
  */
-class FacebookToken extends \TYPO3\FLOW3\Security\Authentication\Token\AbstractToken {
+class FacebookToken extends \TYPO3\Flow\Security\Authentication\Token\AbstractToken {
 
     /**
-     * @FLOW3\Inject
-     * @var \FLOW3\Facebook\Service\FacebookService 
+     * @Flow\Inject
+     * @var \Flowpack\Auth\Facebook\Service\FacebookService 
      */
     protected $facebookService;
 
     /**
      * Updates the user information from Facebook service
-     * @param \TYPO3\FLOW3\MVC\RequestInterface $request The current request instance
+     * @param \TYPO3\Flow\MVC\RequestInterface $request The current request instance
      * @return void
      */
-    public function updateCredentials(\TYPO3\FLOW3\Mvc\ActionRequest $actionRequest) {
+    public function updateCredentials(\TYPO3\Flow\Mvc\ActionRequest $actionRequest) {
         $user_profile = null;
         try {
             $user = $this->facebookService->getFaceBookObject()->getUser();

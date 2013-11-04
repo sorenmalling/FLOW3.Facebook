@@ -1,9 +1,9 @@
 <?php
 
-namespace FLOW3\Facebook\Security\Authentication\Provider;
+namespace Flowpack\Auth\Facebook\Security\Authentication\Provider;
 
 /* *
- * This script belongs to the FLOW3 framework.                            *
+ * This script belongs to the Flow framework.                            *
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU Lesser General Public License, either version 3   *
@@ -12,33 +12,33 @@ namespace FLOW3\Facebook\Security\Authentication\Provider;
  * The TYPO3 project - inspiring people to share!                         *
  *                                                                        */
 
-use TYPO3\FLOW3\Annotations as FLOW3;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * An authentication provider that authenticates throw Facebook 
  */
-class FacebookProvider extends \TYPO3\FLOW3\Security\Authentication\Provider\AbstractProvider {
+class FacebookProvider extends \TYPO3\Flow\Security\Authentication\Provider\AbstractProvider {
 
     /**
-     * @var \TYPO3\FLOW3\Security\AccountRepository
-     * @FLOW3\Inject
+     * @var \TYPO3\Flow\Security\AccountRepository
+     * @Flow\Inject
      */
     protected $accountRepository;
 
     /**
-     * @FLOW3\Inject
-     * @var \TYPO3\FLOW3\Security\AccountFactory
+     * @Flow\Inject
+     * @var \TYPO3\Flow\Security\AccountFactory
      */
     protected $accountFactory;
 
     /**
-     * @FLOW3\Inject
-     * @var \FLOW3\Facebook\Service\FacebookService 
+     * @Flow\Inject
+     * @var \Flowpack\Auth\Facebook\Service\FacebookService 
      */
     protected $facebookService;
 
     /**
-     * @FLOW3\Inject
+     * @Flow\Inject
      * @var \TYPO3\Party\Domain\Repository\PartyRepository
      */
     protected $partyRepository;
@@ -49,18 +49,18 @@ class FacebookProvider extends \TYPO3\FLOW3\Security\Authentication\Provider\Abs
      * @return string The classname of the token this provider is responsible for
      */
     public function getTokenClassNames() {
-        return array('\FLOW3\Facebook\Security\Authentication\Token\FacebookToken');
+        return array('\Flow\Facebook\Security\Authentication\Token\FacebookToken');
     }
 
     /**
      * Sets isAuthenticated to TRUE for all tokens.
      *
-     * @param \TYPO3\FLOW3\Security\Authentication\TokenInterface $authenticationToken The token to be authenticated
+     * @param \TYPO3\Flow\Security\Authentication\TokenInterface $authenticationToken The token to be authenticated
      * @return void
      */
-    public function authenticate(\TYPO3\FLOW3\Security\Authentication\TokenInterface $authenticationToken) {
-        if (!($authenticationToken instanceof \FLOW3\Facebook\Security\Authentication\Token\FacebookToken)) {
-            throw new \TYPO3\FLOW3\Security\Exception\UnsupportedAuthenticationTokenException('This provider cannot authenticate the given token.', 1217339840);
+    public function authenticate(\TYPO3\Flow\Security\Authentication\TokenInterface $authenticationToken) {
+        if (!($authenticationToken instanceof \Flowpack\Auth\Facebook\Security\Authentication\Token\FacebookToken)) {
+            throw new \TYPO3\Flow\Security\Exception\UnsupportedAuthenticationTokenException('This provider cannot authenticate the given token.', 1217339840);
         }
 
         // FacebookToken
@@ -89,13 +89,13 @@ class FacebookProvider extends \TYPO3\FLOW3\Security\Authentication\Provider\Abs
             }
 
             if (is_object($account)) {
-                $authenticationToken->setAuthenticationStatus(\TYPO3\FLOW3\Security\Authentication\TokenInterface::AUTHENTICATION_SUCCESSFUL);
+                $authenticationToken->setAuthenticationStatus(\TYPO3\Flow\Security\Authentication\TokenInterface::AUTHENTICATION_SUCCESSFUL);
                 $authenticationToken->setAccount($account);
-            } elseif ($authenticationToken->getAuthenticationStatus() !== \TYPO3\FLOW3\Security\Authentication\TokenInterface::AUTHENTICATION_SUCCESSFUL) {
-                $authenticationToken->setAuthenticationStatus(\TYPO3\FLOW3\Security\Authentication\TokenInterface::NO_CREDENTIALS_GIVEN);
+            } elseif ($authenticationToken->getAuthenticationStatus() !== \TYPO3\Flow\Security\Authentication\TokenInterface::AUTHENTICATION_SUCCESSFUL) {
+                $authenticationToken->setAuthenticationStatus(\TYPO3\Flow\Security\Authentication\TokenInterface::NO_CREDENTIALS_GIVEN);
             }
         } else {
-            $authenticationToken->setAuthenticationStatus(\TYPO3\FLOW3\Security\Authentication\TokenInterface::WRONG_CREDENTIALS);
+            $authenticationToken->setAuthenticationStatus(\TYPO3\Flow\Security\Authentication\TokenInterface::WRONG_CREDENTIALS);
         }
     }
 

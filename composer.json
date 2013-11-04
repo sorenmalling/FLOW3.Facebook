@@ -1,0 +1,16 @@
+{
+  "name": "flowpack\/auth-facebook",
+  "description": "TYPO3 Flow support for authenticating with Facebook",
+  "type": "typo3-flow-package",
+  "description": null,
+  "version": null,
+  "require": {
+    "typo3\/flow": "*"
+  },
+  "autoload": {
+    "psr-0": {
+      "Flowpack\\Auth\\Facebook": "Classes"
+    }
+  }
+}
+
