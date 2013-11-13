@@ -1,10 +1,10 @@
 <?php
 
-namespace Flowpack\Auth\Facebook\Service;
+namespace Flowpack\Authentication\Facebook\Service;
 
 use TYPO3\Flow\Annotations as Flow;
 
-require_once FLOW_PATH_PACKAGES . 'Application/Flowpack.Auth.Facebook/Resources/Private/PHP/facebook-sdk/facebook.php';
+require_once FLOW_PATH_PACKAGES . 'Application/Flowpack.Authentication.Facebook/Resources/Private/PHP/facebook-sdk/facebook.php';
 
 /**
  * Service Facebook

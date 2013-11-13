@@ -1,6 +1,6 @@
 <?php
 
-namespace Flowpack\Auth\Facebook\Security\Authentication\Token;
+namespace Flowpack\Authentication\Facebook\Security\Authentication\Token;
 
 /*
  *
@@ -23,7 +23,7 @@ class FacebookToken extends \TYPO3\Flow\Security\Authentication\Token\AbstractTo
 
     /**
      * @Flow\Inject
-     * @var \Flowpack\Auth\Facebook\Service\FacebookService 
+     * @var \Flowpack\Authentication\Facebook\Service\FacebookService
      */
     protected $facebookService;
 

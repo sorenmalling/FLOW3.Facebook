@@ -1,6 +1,6 @@
 <?php
 
-namespace Flowpack\Auth\Facebook\Security\Authentication\Provider;
+namespace Flowpack\Authentication\Facebook\Security\Authentication\Provider;
 
 /* *
  * This script belongs to the Flow framework.                            *
@@ -33,7 +33,7 @@ class FacebookProvider extends \TYPO3\Flow\Security\Authentication\Provider\Abst
 
     /**
      * @Flow\Inject
-     * @var \Flowpack\Auth\Facebook\Service\FacebookService 
+     * @var \Flowpack\Authentication\Facebook\Service\FacebookService
      */
     protected $facebookService;
 
@@ -49,7 +49,7 @@ class FacebookProvider extends \TYPO3\Flow\Security\Authentication\Provider\Abst
      * @return string The classname of the token this provider is responsible for
      */
     public function getTokenClassNames() {
-        return array('\Flow\Facebook\Security\Authentication\Token\FacebookToken');
+        return array('\Flowpack\Authentication\Facebook\Security\Authentication\Token\FacebookToken');
     }
 
     /**
@@ -59,7 +59,7 @@ class FacebookProvider extends \TYPO3\Flow\Security\Authentication\Provider\Abst
      * @return void
      */
     public function authenticate(\TYPO3\Flow\Security\Authentication\TokenInterface $authenticationToken) {
-        if (!($authenticationToken instanceof \Flowpack\Auth\Facebook\Security\Authentication\Token\FacebookToken)) {
+        if (!($authenticationToken instanceof \Flowpack\Authentication\Facebook\Security\Authentication\Token\FacebookToken)) {
             throw new \TYPO3\Flow\Security\Exception\UnsupportedAuthenticationTokenException('This provider cannot authenticate the given token.', 1217339840);
         }
 
@@ -98,7 +98,6 @@ class FacebookProvider extends \TYPO3\Flow\Security\Authentication\Provider\Abst
             $authenticationToken->setAuthenticationStatus(\TYPO3\Flow\Security\Authentication\TokenInterface::WRONG_CREDENTIALS);
         }
     }
-
 }
 
 ?>

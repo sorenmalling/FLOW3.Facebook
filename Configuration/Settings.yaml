@@ -1,16 +1,6 @@
-TYPO3:
-  FLOW3:
-    security:
-      authentication:
-        providers:
-          FacebookProvider:
-            provider: 'FLOW3\Facebook\Security\Authentication\Provider\FacebookProvider'
-            entryPoint: 'WebRedirect'
-            entryPointOptions: 
-              uri: 'index'
-
-FLOW3:
-  Facebook:
-    API:
-      appId: ''
-      secret: ''
+Flowpack:
+  Authentication:
+    Facebook:
+      API:
+        appId: ''
+        secret: ''
