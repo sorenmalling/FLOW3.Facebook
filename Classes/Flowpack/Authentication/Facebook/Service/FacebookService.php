@@ -40,8 +40,8 @@ class FacebookService {
     public function getFaceBookObject() {
         if (is_object($this->object) == false) {
             $this->object = new \Facebook(array(
-                        'appId' => $this->settings['API']['appId'],
-                        'secret' => $this->settings['API']['secret']
+                        'appId' => $this->settings['application']['id'],
+                        'secret' => $this->settings['application']['secret']
                     ));
         }
         return $this->object;

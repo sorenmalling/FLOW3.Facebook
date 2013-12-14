@@ -23,17 +23,19 @@ class AuthenticationController extends AbstractAuthenticationController {
 	 */
 	public function authenticateAction() {
 		$facebookObject = $this->facebookService->getFaceBookObject();
+		\TYPO3\Flow\var_dump($facebookObject->getUser());
 		if ($facebookObject->getUser() > 0) {
-			$user = $facebookObject->getUser();
-			\TYPO3\Flow\var_dump($user);
-			$user_profile = $facebookObject->api('/me');
-			\TYPO3\Flow\var_dump($user_profile);
+			$this->authenticationManager->authenticate();
+			if ($this->authenticationManager->isAuthenticated() === TRUE) {
+				$this->onAuthenticationSuccess($this->request);
+			}
 		} else {
+			$redirectUriParameters = $this->settings['application']['redirect_uri'];
 			$loginUrl = $facebookObject->getLoginUrl(
 				array(
-					'client_id' => $this->settings['API']['appId'],
-					'redirect_uri' => 'http://scoutrace.sma/flowpack.authentication.facebook/authentication/authenticate',
-					'scope' => 'email'
+					'client_id' => $this->settings['application']['id'],
+					#'redirect_uri' => $this->uriBuilder->setCreateAbsoluteUri(TRUE)->uriFor($redirectUriParameters['@action'], $redirectUriParameters, $redirectUriParameters['@controller'], $redirectUriParameters['@package'], $redirectUriParameters['@subpackage']),
+					'scope' => $this->settings['application']['scope']
 				)
 			);
 			$this->redirectToUri($loginUrl);
@@ -57,7 +59,9 @@ class AuthenticationController extends AbstractAuthenticationController {
 	 * @return string
 	 */
 	protected function onAuthenticationSuccess(\TYPO3\Flow\Mvc\ActionRequest $originalRequest = NULL) {
-		// TODO: Implement onAuthenticationSuccess() method.
+		$redirectUriParameters = $this->settings['application']['redirect_uri'];
+		$uri = $this->uriBuilder->setCreateAbsoluteUri(TRUE)->uriFor($redirectUriParameters['@action'], array(), $redirectUriParameters['@controller'], $redirectUriParameters['@package'], $redirectUriParameters['@subpackage']);
+		$this->redirectToUri($uri);
 	}
 
 }

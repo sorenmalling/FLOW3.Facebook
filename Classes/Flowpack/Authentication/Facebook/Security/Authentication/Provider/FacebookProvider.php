@@ -43,7 +43,13 @@ class FacebookProvider extends \TYPO3\Flow\Security\Authentication\Provider\Abst
      */
     protected $partyRepository;
 
-    /**
+	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Persistence\PersistenceManagerInterface
+	 */
+	protected $persistenceManager;
+
+	/**
      * Returns the classnames of the tokens this provider is responsible for.
      *
      * @return string The classname of the token this provider is responsible for
@@ -56,6 +62,7 @@ class FacebookProvider extends \TYPO3\Flow\Security\Authentication\Provider\Abst
      * Sets isAuthenticated to TRUE for all tokens.
      *
      * @param \TYPO3\Flow\Security\Authentication\TokenInterface $authenticationToken The token to be authenticated
+	 *
      * @return void
      */
     public function authenticate(\TYPO3\Flow\Security\Authentication\TokenInterface $authenticationToken) {
@@ -71,7 +78,7 @@ class FacebookProvider extends \TYPO3\Flow\Security\Authentication\Provider\Abst
             
             // Account does not exist
             if (is_object($account) == false) {
-                $account = $this->accountFactory->createAccountWithPassword($credentials['email'], md5(time()), array('UserLambda'), $this->name);
+                $account = $this->accountFactory->createAccountWithPassword($credentials['email'], md5(time()), array('Flowpack.Authentication.Facebook:UserLambda'), $this->name);
                 $this->accountRepository->add($account);
 
                 if ($credentials['last_name'] && $credentials['first_name']) {
@@ -87,13 +94,13 @@ class FacebookProvider extends \TYPO3\Flow\Security\Authentication\Provider\Abst
                     $this->partyRepository->add($person);
                 }
             }
-
             if (is_object($account)) {
                 $authenticationToken->setAuthenticationStatus(\TYPO3\Flow\Security\Authentication\TokenInterface::AUTHENTICATION_SUCCESSFUL);
                 $authenticationToken->setAccount($account);
             } elseif ($authenticationToken->getAuthenticationStatus() !== \TYPO3\Flow\Security\Authentication\TokenInterface::AUTHENTICATION_SUCCESSFUL) {
                 $authenticationToken->setAuthenticationStatus(\TYPO3\Flow\Security\Authentication\TokenInterface::NO_CREDENTIALS_GIVEN);
             }
+			$this->persistenceManager->persistAll();
         } else {
             $authenticationToken->setAuthenticationStatus(\TYPO3\Flow\Security\Authentication\TokenInterface::WRONG_CREDENTIALS);
         }

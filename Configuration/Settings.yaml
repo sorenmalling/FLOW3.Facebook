@@ -1,6 +1,26 @@
 Flowpack:
   Authentication:
     Facebook:
-      API:
-        appId: ''
+      application:
+        id: ''
         secret: ''
+        scope: ''
+        redirect_uri:
+          '@package': 'Flowpack.Authentication.Facebook'
+          '@controller': 'Authentication'
+          '@action': 'authenticate'
+          '@subpackage': NULL
+
+TYPO3:
+  Flow:
+    security:
+      authentication:
+        providers:
+          FacebookProvider:
+            provider: Flowpack\Authentication\Facebook\Security\Authentication\Provider\FacebookProvider
+            entryPoint: 'WebRedirect'
+            entryPointOptions:
+              routeValues:
+                '@package': 'Flowpack.Authentication.Facebook'
+                '@controller': 'Authentication'
+                '@action': 'authenticate'
