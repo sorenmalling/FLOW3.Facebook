@@ -2,13 +2,22 @@ Flowpack:
   Authentication:
     Facebook:
       application:
-        id: ''
-        secret: ''
+        id: 'IDIDIDIDID'
+        secret: 'The secret goes to the grave of the deep blue sea'
         scope: ''
         redirect_uri:
+          #'@package': 'Scoutrace.Scoutrace'
+          #'@controller': 'Standard'
+          #'@action': 'index'
+          #'@subpackage': NULL
           '@package': 'Flowpack.Authentication.Facebook'
           '@controller': 'Authentication'
           '@action': 'authenticate'
+          '@subpackage': NULL
+        success_redirect_uri:
+          '@package': 'Scoutrace.Scoutrace'
+          '@controller': 'Standard'
+          '@action': 'index'
           '@subpackage': NULL
 
 TYPO3:

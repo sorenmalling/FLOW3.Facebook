@@ -17,13 +17,18 @@ class AuthenticationController extends AbstractAuthenticationController {
 	protected $facebookService;
 
 	/**
+		* @var \TYPO3\Flow\Log\SystemLoggerInterface
+		* @Flow\Inject
+		*/
+		protected $systemLogger;
+
+	/**
 	 * Authenticate the request
 	 *
 	 * @return void
 	 */
 	public function authenticateAction() {
 		$facebookObject = $this->facebookService->getFaceBookObject();
-		\TYPO3\Flow\var_dump($facebookObject->getUser());
 		if ($facebookObject->getUser() > 0) {
 			$this->authenticationManager->authenticate();
 			if ($this->authenticationManager->isAuthenticated() === TRUE) {
@@ -33,8 +38,7 @@ class AuthenticationController extends AbstractAuthenticationController {
 			$redirectUriParameters = $this->settings['application']['redirect_uri'];
 			$loginUrl = $facebookObject->getLoginUrl(
 				array(
-					'client_id' => $this->settings['application']['id'],
-					#'redirect_uri' => $this->uriBuilder->setCreateAbsoluteUri(TRUE)->uriFor($redirectUriParameters['@action'], $redirectUriParameters, $redirectUriParameters['@controller'], $redirectUriParameters['@package'], $redirectUriParameters['@subpackage']),
+					'redirect_uri' => $this->uriBuilder->setCreateAbsoluteUri(TRUE)->uriFor($redirectUriParameters['@action'], $redirectUriParameters, $redirectUriParameters['@controller'], $redirectUriParameters['@package'], $redirectUriParameters['@subpackage']),
 					'scope' => $this->settings['application']['scope']
 				)
 			);
@@ -59,7 +63,7 @@ class AuthenticationController extends AbstractAuthenticationController {
 	 * @return string
 	 */
 	protected function onAuthenticationSuccess(\TYPO3\Flow\Mvc\ActionRequest $originalRequest = NULL) {
-		$redirectUriParameters = $this->settings['application']['redirect_uri'];
+		$redirectUriParameters = $this->settings['application']['success_redirect_uri'];
 		$uri = $this->uriBuilder->setCreateAbsoluteUri(TRUE)->uriFor($redirectUriParameters['@action'], array(), $redirectUriParameters['@controller'], $redirectUriParameters['@package'], $redirectUriParameters['@subpackage']);
 		$this->redirectToUri($uri);
 	}

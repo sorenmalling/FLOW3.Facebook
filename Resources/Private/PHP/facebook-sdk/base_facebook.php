@@ -524,6 +524,7 @@ abstract class BaseFacebook
       'dialog/oauth',
       array_merge(array(
                     'client_id' => $this->getAppId(),
+                    'client_secret' => $this->getAppSecret(),
                     'redirect_uri' => $currentUrl, // possibly overwritten
                     'state' => $this->state),
                   $params));
